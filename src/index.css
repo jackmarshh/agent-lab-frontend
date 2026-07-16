@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+  --color-codex-cyan: #00FFA3;
+  --color-codex-bg: #0D0D0D;
+  --color-codex-card: #1A1A1A;
+  --color-codex-border: #2E2E2E;
+}
+
+@layer base {
+  body {
+    @apply bg-codex-bg text-gray-300 font-sans;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-codex-border rounded-full hover:bg-gray-600 transition-colors;
+}
