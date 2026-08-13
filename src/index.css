@@ -1,27 +1,143 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", "Fira Code", monospace;
-  --color-codex-cyan: #00FFA3;
-  --color-codex-bg: #0D0D0D;
-  --color-codex-card: #1A1A1A;
-  --color-codex-border: #2E2E2E;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    "Noto Sans SC", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
+    "Liberation Mono", monospace;
+
+  /* 中性色阶：ink-950 最深，ink-100 最亮 */
+  --color-ink-950: #09090b;
+  --color-ink-900: #0e0e11;
+  --color-ink-850: #121215;
+  --color-ink-800: #17171c;
+  --color-ink-700: #232329;
+  --color-ink-600: #2e2e36;
+  --color-ink-500: #41414b;
+  --color-ink-400: #6e6e7a;
+  --color-ink-300: #9d9da8;
+  --color-ink-200: #c9c9d1;
+  --color-ink-100: #ededf2;
+
+  /* 品牌强调色（薄荷绿） */
+  --color-accent-300: #7dffc2;
+  --color-accent-400: #3dffab;
+  --color-accent-500: #00ffa3;
+  --color-accent-600: #00cc82;
+  --color-accent-700: #009966;
 }
 
 @layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
   body {
-    @apply bg-codex-bg text-gray-300 font-sans;
+    @apply bg-ink-950 font-sans text-ink-200 antialiased;
+  }
+
+  ::selection {
+    @apply bg-accent-500/30 text-ink-100;
+  }
+
+  :focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--color-accent-500) 60%, transparent);
+    outline-offset: 2px;
   }
 }
 
-/* Custom scrollbar */
+/* 细滚动条 */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  @apply bg-transparent;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-codex-border rounded-full hover:bg-gray-600 transition-colors;
+  background: var(--color-ink-700);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-ink-600);
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-ink-700) transparent;
+}
+
+/* Markdown 渲染样式（用于助手消息正文） */
+@layer components {
+  .md-body {
+    @apply text-[13.5px] leading-relaxed text-ink-200;
+  }
+  .md-body > :first-child {
+    @apply mt-0;
+  }
+  .md-body > :last-child {
+    @apply mb-0;
+  }
+  .md-body p {
+    @apply my-2;
+  }
+  .md-body strong {
+    @apply font-semibold text-ink-100;
+  }
+  .md-body em {
+    @apply text-ink-300;
+  }
+  .md-body a {
+    @apply text-accent-500 underline underline-offset-2 hover:text-accent-400;
+  }
+  .md-body ul {
+    @apply my-2 list-disc space-y-1 pl-5;
+  }
+  .md-body ol {
+    @apply my-2 list-decimal space-y-1 pl-5;
+  }
+  .md-body li::marker {
+    @apply text-ink-500;
+  }
+  .md-body h1,
+  .md-body h2,
+  .md-body h3,
+  .md-body h4 {
+    @apply mb-2 mt-4 font-semibold text-ink-100;
+  }
+  .md-body h1 {
+    @apply text-lg;
+  }
+  .md-body h2 {
+    @apply text-base;
+  }
+  .md-body h3 {
+    @apply text-sm;
+  }
+  .md-body code {
+    @apply rounded border border-ink-600 bg-ink-800 px-1.5 py-0.5 font-mono text-[12px] text-accent-400;
+  }
+  .md-body pre {
+    @apply my-3 overflow-x-auto rounded-lg border border-ink-700 bg-ink-950 p-3;
+  }
+  .md-body pre code {
+    @apply border-0 bg-transparent p-0 text-ink-200;
+  }
+  .md-body blockquote {
+    @apply my-3 border-l-2 border-accent-500/50 pl-3 italic text-ink-400;
+  }
+  .md-body hr {
+    @apply my-4 border-ink-700;
+  }
+  .md-body table {
+    @apply my-3 w-full border-collapse text-left text-[12.5px];
+  }
+  .md-body th {
+    @apply border border-ink-600 bg-ink-800 px-2 py-1.5 font-medium text-ink-100;
+  }
+  .md-body td {
+    @apply border border-ink-600 px-2 py-1.5 text-ink-300;
+  }
 }

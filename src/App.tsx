@@ -1,18 +1,23 @@
-import React from 'react';
-import { ChatWindow } from './components/ChatWindow';
-import { EvidenceSidebar } from './components/EvidenceSidebar';
-import { MetadataBar } from './components/MetadataBar';
+import { useState } from 'react';
+import { ChatWindow } from './components/chat/ChatWindow';
+import { EvidenceSidebar } from './components/evidence/EvidenceSidebar';
+import { MetadataBar } from './components/metadata/MetadataBar';
+import { useBackendHealth } from './hooks/useBackendHealth';
 
-const App: React.FC = () => {
+export default function App() {
+  const backendStatus = useBackendHealth();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
-    <div className="h-screen w-full flex flex-col bg-codex-bg overflow-hidden">
-      <div className="flex-1 flex overflow-hidden">
-        <ChatWindow />
-        <EvidenceSidebar />
+    <div className="flex h-dvh w-full flex-col overflow-hidden bg-ink-950 text-ink-200">
+      <div className="flex min-h-0 flex-1">
+        <ChatWindow
+          backendStatus={backendStatus}
+          onToggleSidebar={() => setSidebarOpen((v) => !v)}
+        />
+        <EvidenceSidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       </div>
-      <MetadataBar />
+      <MetadataBar backendStatus={backendStatus} />
     </div>
   );
-};
-
-export default App;
+}
