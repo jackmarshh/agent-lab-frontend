@@ -2,13 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                echo '拉取前端代码...'
-                git branch: 'main', url: 'https://github.com/jackmarshh/agent-lab-frontend.git'
-            }
-        }
-
         stage('Deploy to K8s') {
             steps {
                 echo '部署前端到 K8s（in-cluster）...'
