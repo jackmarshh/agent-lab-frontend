@@ -15,8 +15,8 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: agent-lab-frontend:v1
-        imagePullPolicy: Never  # 依然强制使用本地打包好的镜像
+        image: jackmars/agent-lab-frontend:v3
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
 ---

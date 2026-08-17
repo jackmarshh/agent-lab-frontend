@@ -1,5 +1,5 @@
 # 第一阶段：构建
-FROM node:18-alpine AS builder
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 # 复制 package.json 和 lock 文件
