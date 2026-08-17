@@ -25,7 +25,7 @@ export function ChatHeader({ backendStatus, onToggleSidebar }: ChatHeaderProps) 
         </div>
         <div className="min-w-0 leading-tight">
           <h1 className="truncate font-mono text-sm font-semibold tracking-tight text-ink-100">
-            AGENT LAB
+            AGENT LAB v2
           </h1>
           <p className="truncate font-mono text-[10px] text-ink-400">{conversationId}</p>
         </div>
